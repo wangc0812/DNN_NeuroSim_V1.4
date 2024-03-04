@@ -496,11 +496,13 @@ double ProcessingUnitCalculatePerformance(SubArray *subArray, const vector<vecto
 					
 					for (int k=0; k<numInVector; k++) {                 // calculate single subArray through the total input vectors
 						
-						double activityRowRead = 0;
+						double activityRowRead = 0; // 输入中1的比例
 						vector<double> input;
+
 						input = GetInputVector(subArrayInput, k, &activityRowRead);
 
 						subArray->activityRowRead = activityRowRead;
+						// 在这里修改了subarray对象的activityRowRead
 						
 						int cellRange = pow(2, param->cellBit);
 						if (param->parallelRead) {
@@ -678,6 +680,7 @@ vector<double> GetInputVector(const vector<vector<double> > &input, int numInput
 			numofreadrow += 0;
 		}
 	}
+	// 一个指向 double 的指针，用于存储计算出的非零元素的比例
 
 	// 122923 update
 	double totalnumRow = param->numRowSubArray;

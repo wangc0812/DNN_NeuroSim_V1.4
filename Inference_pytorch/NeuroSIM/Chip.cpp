@@ -1559,7 +1559,6 @@ vector<vector<double> > LoadInInputData(const string &inputfile) {
 				double f=0;
 				fs >> f;
 				
-				cout << "param->BNNparallelMode="<< param->BNNparallelMode<< endl;
 				if (param->BNNparallelMode) {
 					if (f == 1) {
 						inputvectorrow.push_back(1);
