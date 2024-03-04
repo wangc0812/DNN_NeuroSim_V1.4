@@ -702,6 +702,8 @@ double ChipCalculatePerformance(InputParameter& inputParameter, Technology& tech
 	int weightMatrixRow = netStructure[l][2]*netStructure[l][3]*netStructure[l][4]*numRowPerSynapse;
 	int weightMatrixCol = netStructure[l][5]*numColPerSynapse;
 	
+	// need to modify ... Cong-03-01
+	// 这里是每一层的输入与权重的csv文件
 	// load in whole file 
 	vector<vector<double> > inputVector;
 	inputVector = LoadInInputData(inputfile); 
@@ -1557,6 +1559,7 @@ vector<vector<double> > LoadInInputData(const string &inputfile) {
 				double f=0;
 				fs >> f;
 				
+				cout << "param->BNNparallelMode="<< param->BNNparallelMode<< endl;
 				if (param->BNNparallelMode) {
 					if (f == 1) {
 						inputvectorrow.push_back(1);
