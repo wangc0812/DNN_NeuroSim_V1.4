@@ -705,8 +705,17 @@ double ChipCalculatePerformance(InputParameter& inputParameter, Technology& tech
 	// need to modify ... Cong-03-01
 	// 这里是每一层的输入与权重的csv文件
 	// load in whole file 
+	//------------------------------------------//
+	// modified by Cong for input non-zero ratio
+	// 2024-03-05
+	
+	double AverageActivityRowRead = 0.000;
+	cout << inputfile << endl;
+	LoadInInputRatio(inputfile, &AverageActivityRowRead);
+
+
 	vector<vector<double> > inputVector;
-	inputVector = LoadInInputData(inputfile); 
+	// inputVector = LoadInInputData(inputfile); 
 	vector<vector<double> > newMemory;
 	newMemory = LoadInWeightData(newweightfile, numRowPerSynapse, numColPerSynapse, param->maxConductance, param->minConductance);
 	
@@ -1637,8 +1646,34 @@ vector<vector<double> > ReshapeInput(const vector<vector<double> > &orginal, int
 } 
 
 
+// below function is added by Cong for the average model
 
+void LoadInInputRatio(const string &inputfile, double *AverageActivityRowRead) {
+	
+	ifstream infile(inputfile.c_str());     
+	string inputline;
+	string inputvalue;
 
+	if (!infile.good()) 
+	{  	
+		cout << "wrong "<<endl;
+		cerr << "Error: the input file cannot be opened!" << endl;
+		exit(1);
+	}
+	else
+	{
+		if (getline(infile, inputline)) 
+		{
+            stringstream ss(inputline);
+            if (getline(ss, inputvalue)) 
+			{
+                *AverageActivityRowRead = stod(inputvalue);
+            }
+		}
+	}	
+	infile.clear();
+	infile.close();
+}
 
 
 

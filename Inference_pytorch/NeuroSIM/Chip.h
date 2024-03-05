@@ -75,4 +75,6 @@ vector<vector<double> > LoadInInputData(const string &inputfile);
 vector<vector<double> > CopyInput(const vector<vector<double> > &orginal, int positionRow, int numInputVector, int numRow);
 vector<vector<double> > ReshapeInput(const vector<vector<double> > &orginal, int positionRow, int numInputVector, int numRow, int numPE, int weightMatrixRow);
 
+// below function is added by Cong for the average model
+void LoadInInputRatio(const string &inputfile, double *AverageActivityRowRead);
 #endif /* CHIP_H_ */
