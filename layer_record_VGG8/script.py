@@ -3,7 +3,7 @@ import numpy as np
 
 # 定义每种类型文件的编号
 file_indices = {
-    "inputConv": [0, 1, 3, 4, 6, 7, 8],
+    "inputConv": [0, 1, 3, 4, 6, 7],
     "inputFC": [0, 1]
 }
 

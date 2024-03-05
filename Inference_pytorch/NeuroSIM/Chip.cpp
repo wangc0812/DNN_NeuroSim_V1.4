@@ -710,7 +710,7 @@ double ChipCalculatePerformance(InputParameter& inputParameter, Technology& tech
 	// 2024-03-05
 	
 	double AverageActivityRowRead = 0.000;
-	cout << inputfile << endl;
+	cout <<" current issued average file:" <<inputfile << endl;
 	LoadInInputRatio(inputfile, &AverageActivityRowRead);
 	//------------------------------------------//
 	// Cong: inputVector is useless now 
@@ -797,8 +797,9 @@ double ChipCalculatePerformance(InputParameter& inputParameter, Technology& tech
 				tileMemory = CopyArray(newMemory, i*desiredTileSizeCM, j*desiredTileSizeCM, numRowMatrix, numColMatrix);
 				
 
-				vector<vector<double> > tileInput;
+				
 				// Cong: tileInput is useless now, modified TileCalculatePerformance argument
+				// vector<vector<double> > tileInput;
 				// remember to update the head file!! 
 				// tileInput = CopyInput(inputVector, i*desiredTileSizeCM, numInVector*param->numBitInput, numRowMatrix);
 
@@ -973,9 +974,10 @@ double ChipCalculatePerformance(InputParameter& inputParameter, Technology& tech
 				tileMemory = ReshapeArray(newMemory, i*desiredPESizeNM, j*desiredPESizeNM, (int) netStructure[l][2]*numRowPerSynapse/numtileEachLayerRow, 
 									(int) netStructure[l][5]*numColPerSynapse/numtileEachLayerCol, numPENM, (int) netStructure[l][2]*numRowPerSynapse);
 
-				vector<vector<double> > tileInput;
-				tileInput = ReshapeInput(inputVector, i*desiredPESizeNM, numInVector*param->numBitInput, 
-									(int) netStructure[l][2]*numRowPerSynapse/numtileEachLayerRow, numPENM, (int) netStructure[l][2]*numRowPerSynapse);
+				// Cong: this is useless
+				// vector<vector<double> > tileInput;
+				// tileInput = ReshapeInput(inputVector, i*desiredPESizeNM, numInVector*param->numBitInput, 
+				// 					(int) netStructure[l][2]*numRowPerSynapse/numtileEachLayerRow, numPENM, (int) netStructure[l][2]*numRowPerSynapse);
 
 				// Cong：AverageActivityRowRead
 				// Anni update: add &tileLeakageSRAMInUse
