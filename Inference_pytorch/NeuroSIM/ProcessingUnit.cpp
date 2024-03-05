@@ -760,7 +760,7 @@ vector<double> GetColumnResistance(double AverageActivityRowRead, double totalnu
 			}
 			
 			SumofWireResistance += totalWireResistance;
-			counter++;
+			counter += 1;
 
 		}
 		
