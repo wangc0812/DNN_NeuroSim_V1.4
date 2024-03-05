@@ -710,7 +710,7 @@ double ChipCalculatePerformance(InputParameter& inputParameter, Technology& tech
 	// 2024-03-05
 	
 	double AverageActivityRowRead = 0.000;
-	cout <<" current issued average file:" <<inputfile << endl;
+	// cout <<" current issued average file:" <<inputfile << endl;
 	LoadInInputRatio(inputfile, &AverageActivityRowRead);
 	//------------------------------------------//
 	// Cong: inputVector is useless now 
