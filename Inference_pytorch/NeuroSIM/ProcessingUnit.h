@@ -47,7 +47,8 @@
 void ProcessingUnitInitialize(SubArray *& subArray, InputParameter& inputParameter, Technology& tech, MemCell& cell, int _numSubArrayRowNM, int _numSubArrayColNM, int _numSubArrayRowCM, int _numSubArrayColCM);
 vector<double> ProcessingUnitCalculateArea(SubArray *subArray, int numSubArrayRow, int numSubArrayCol, bool NMpe, double *height, double *width, double *bufferArea);
 // Anni update: double *leakageSRAMInUse
-double ProcessingUnitCalculatePerformance(SubArray *subArray, const vector<vector<double> > &newMemory, const vector<vector<double> > &oldMemory, const vector<vector<double> > &inputVector, 
+// Cong update: double AverageActivityRowRead
+double ProcessingUnitCalculatePerformance(SubArray *subArray, const vector<vector<double> > &newMemory, const vector<vector<double> > &oldMemory, double AverageActivityRowRead, 
 										int arrayDupRow, int arrayDupCol, int numSubArrayRow, int numSubArrayCol, int weightMatrixRow, int weightMatrixCol, 
 										int numInVector, MemCell& cell, bool NMpe, double *readLatency, double *readDynamicEnergy, double *leakage, double *leakageSRAMInUse,
 										double *bufferLatency, double *bufferDynamicEnergy, double *icLatency, double *icDynamicEnergy,
@@ -56,7 +57,8 @@ double ProcessingUnitCalculatePerformance(SubArray *subArray, const vector<vecto
 vector<vector<double> > CopySubArray(const vector<vector<double> > &orginal, int positionRow, int positionCol, int numRow, int numCol);
 vector<vector<double> > CopySubInput(const vector<vector<double> > &orginal, int positionRow, int numInputVector, int numRow);
 vector<double> GetInputVector(const vector<vector<double> > &input, int numInput, double *activityRowRead);
-vector<double> GetColumnResistance(const vector<double> &input, const vector<vector<double> > &weight, MemCell& cell, bool parallelRead, double resCellAccess);
+// Cong update:double AverageActivityRowRead, double totalnumRow
+vector<double> GetColumnResistance(double AverageActivityRowRead,double totalnumRow, const vector<vector<double> > &weight, MemCell& cell, bool parallelRead, double resCellAccess);
 
 
 #endif /* PROCESSINGUNIT_H_ */

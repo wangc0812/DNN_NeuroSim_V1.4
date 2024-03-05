@@ -328,7 +328,7 @@ vector<double> TileCalculateArea(double numPE, double peSize, bool NMTile, doubl
 }
 
 // Anni update: add leakageSRAMInUse
-void TileCalculatePerformance(const vector<vector<double> > &newMemory, const vector<vector<double> > &oldMemory, const vector<vector<double> > &inputVector, int novelMap, double numPE, 
+void TileCalculatePerformance(const vector<vector<double> > &newMemory, const vector<vector<double> > &oldMemory, double AverageActivityRowRead, int novelMap, double numPE, 
 							double peSize, int speedUpRow, int speedUpCol, int weightMatrixRow, int weightMatrixCol, int numInVector, MemCell& cell, double *readLatency, double *readDynamicEnergy, double *leakage, double *leakageSRAMInUse,
 							double *bufferLatency, double *bufferDynamicEnergy, double *icLatency, double *icDynamicEnergy,
 							double *coreLatencyADC, double *coreLatencyAccum, double *coreLatencyOther, double *coreEnergyADC, double *coreEnergyAccum, double *coreEnergyOther, bool CalculateclkFreq, double*clkPeriod) {
@@ -385,11 +385,13 @@ void TileCalculatePerformance(const vector<vector<double> > &newMemory, const ve
 				// assign weight and input to specific tile
 				vector<vector<double> > pEMemory;
 				pEMemory = CopyPEArray(newMemory, 0, 0, weightMatrixRow, weightMatrixCol);
-				vector<vector<double> > pEInput;
-				pEInput = CopyPEInput(inputVector, 0, numInVector, weightMatrixRow);
+				// Cong: use AverageActivityRowRead 
+				// vector<vector<double> > pEInput;
+				// pEInput = CopyPEInput(inputVector, 0, numInVector, weightMatrixRow);
+
 				// Anni update
 
-				ProcessingUnitCalculatePerformance(subArrayInPE, pEMemory, pEMemory, pEInput, ceil((double)speedUpRow/(double)numPE), ceil((double)speedUpCol/(double)numPE), 
+				ProcessingUnitCalculatePerformance(subArrayInPE, pEMemory, pEMemory, AverageActivityRowRead, ceil((double)speedUpRow/(double)numPE), ceil((double)speedUpCol/(double)numPE), 
 											numSubArrayRow, numSubArrayCol, weightMatrixRow, weightMatrixCol, numInVector, cell, false,
 											&PEreadLatency, &PEreadDynamicEnergy, &PEleakage, &PEleakageSRAMInUse,
 											&PEbufferLatency, &PEbufferDynamicEnergy, &PEicLatency, &PEicDynamicEnergy,
@@ -423,12 +425,13 @@ void TileCalculatePerformance(const vector<vector<double> > &newMemory, const ve
 							// assign weight and input to specific tile
 							vector<vector<double> > pEMemory;
 							pEMemory = CopyPEArray(newMemory, i*peSize, j*peSize, numRowMatrix, numColMatrix);
-							vector<vector<double> > pEInput;
-							pEInput = CopyPEInput(inputVector, i*peSize, numInVector, numRowMatrix);
+							// Cong update
+							// vector<vector<double> > pEInput;
+							// pEInput = CopyPEInput(inputVector, i*peSize, numInVector, numRowMatrix);
 							
 							// Anni update
 
-							ProcessingUnitCalculatePerformance(subArrayInPE, pEMemory, pEMemory, pEInput, 1, 1, 
+							ProcessingUnitCalculatePerformance(subArrayInPE, pEMemory, pEMemory, AverageActivityRowRead, 1, 1, 
 												numSubArrayRow, numSubArrayCol, numRowMatrix, numColMatrix, numInVector, cell, false,
 												&PEreadLatency, &PEreadDynamicEnergy, &PEleakage, &PEleakageSRAMInUse,
 												&PEbufferLatency, &PEbufferDynamicEnergy, &PEicLatency, &PEicDynamicEnergy,
@@ -486,12 +489,12 @@ void TileCalculatePerformance(const vector<vector<double> > &newMemory, const ve
 						
 						vector<vector<double> > pEMemory;
 						pEMemory = CopyPEArray(newMemory, i*peSize, j*peSize, numRowMatrix, numColMatrix);
-						vector<vector<double> > pEInput;
-						pEInput = CopyPEInput(inputVector, i*peSize, numInVector, numRowMatrix);
+						// vector<vector<double> > pEInput;
+						// pEInput = CopyPEInput(inputVector, i*peSize, numInVector, numRowMatrix);
 						// Anni update
 
 			// Anni update: PEleakageSRAMInUse
-			ProcessingUnitCalculatePerformance(subArrayInPE, pEMemory, pEMemory, pEInput, 1, 1, numSubArrayRow, numSubArrayCol, weightMatrixRow/numPE,
+			ProcessingUnitCalculatePerformance(subArrayInPE, pEMemory, pEMemory, AverageActivityRowRead, 1, 1, numSubArrayRow, numSubArrayCol, weightMatrixRow/numPE,
 									weightMatrixCol, numInVector, cell, false, &PEreadLatency, &PEreadDynamicEnergy, &PEleakage, &PEleakageSRAMInUse,
 									&PEbufferLatency, &PEbufferDynamicEnergy, &PEicLatency, &PEicDynamicEnergy, 
 									&peLatencyADC, &peLatencyAccum, &peLatencyOther, &peEnergyADC, &peEnergyAccum, &peEnergyOther, CalculateclkFreq, clkPeriod);
@@ -618,10 +621,11 @@ void TileCalculatePerformance(const vector<vector<double> > &newMemory, const ve
 			int location = i*MIN(peSize, (int) weightMatrixRow/numPE);
 			vector<vector<double> > pEMemory;
 			pEMemory = CopyPEArray(newMemory, location, 0, weightMatrixRow/numPE, weightMatrixCol);
-			vector<vector<double> > pEInput;
-			pEInput = CopyPEInput(inputVector, location, numInVector, weightMatrixRow/numPE);
+			// Cong update
+			// vector<vector<double> > pEInput;
+			// pEInput = CopyPEInput(inputVector, location, numInVector, weightMatrixRow/numPE);
 			// Anni update: PEleakageSRAMInUse
-			ProcessingUnitCalculatePerformance(subArrayInPE, pEMemory, pEMemory, pEInput, 1, 1, numSubArrayRow, numSubArrayCol, weightMatrixRow/numPE,
+			ProcessingUnitCalculatePerformance(subArrayInPE, pEMemory, pEMemory, AverageActivityRowRead, 1, 1, numSubArrayRow, numSubArrayCol, weightMatrixRow/numPE,
 									weightMatrixCol, numInVector, cell, true, &PEreadLatency, &PEreadDynamicEnergy, &PEleakage, &PEleakageSRAMInUse,
 									&PEbufferLatency, &PEbufferDynamicEnergy, &PEicLatency, &PEicDynamicEnergy, 
 									&peLatencyADC, &peLatencyAccum, &peLatencyOther, &peEnergyADC, &peEnergyAccum, &peEnergyOther, CalculateclkFreq, clkPeriod);
