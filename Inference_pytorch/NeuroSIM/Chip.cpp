@@ -714,7 +714,7 @@ double ChipCalculatePerformance(InputParameter& inputParameter, Technology& tech
 	LoadInInputRatio(inputfile, &AverageActivityRowRead);
 	//------------------------------------------//
 	// Cong: inputVector is useless now 
-	vector<vector<double> > inputVector;
+	// vector<vector<double> > inputVector;
 	// inputVector = LoadInInputData(inputfile); 
 	vector<vector<double> > newMemory;
 	newMemory = LoadInWeightData(newweightfile, numRowPerSynapse, numColPerSynapse, param->maxConductance, param->minConductance);
