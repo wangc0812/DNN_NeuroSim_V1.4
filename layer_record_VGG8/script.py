@@ -3,8 +3,8 @@ import numpy as np
 
 # 定义每种类型文件的编号
 file_indices = {
-    "inputConv": [0, 1, 3, 4, 6, 7],
-    "inputFC": [0, 1]
+    "weightConv": [0, 1, 3, 4, 6, 7],
+    "weightFC": [0, 1]
 }
 
 # 定义文件所在的路径
@@ -24,3 +24,5 @@ for prefix, indices in file_indices.items():
         # 构建输出文件的完整路径和文件名
         output_file_name = f"{file_path}{prefix}{i}_average.csv"
         pd.DataFrame([non_zero_ratio]).to_csv(output_file_name, index=False, header=False)
+        
+print("average file generated successfully!")        
