@@ -48,7 +48,7 @@ void ProcessingUnitInitialize(SubArray *& subArray, InputParameter& inputParamet
 vector<double> ProcessingUnitCalculateArea(SubArray *subArray, int numSubArrayRow, int numSubArrayCol, bool NMpe, double *height, double *width, double *bufferArea);
 // Anni update: double *leakageSRAMInUse
 // Cong update: double AverageActivityRowRead
-double ProcessingUnitCalculatePerformance(SubArray *subArray, const vector<vector<double> > &newMemory, const vector<vector<double> > &oldMemory, double AverageActivityRowRead, 
+double ProcessingUnitCalculatePerformance(SubArray *subArray, double AverageConductance, double AverageActivityRowRead, 
 										int arrayDupRow, int arrayDupCol, int numSubArrayRow, int numSubArrayCol, int weightMatrixRow, int weightMatrixCol, 
 										int numInVector, MemCell& cell, bool NMpe, double *readLatency, double *readDynamicEnergy, double *leakage, double *leakageSRAMInUse,
 										double *bufferLatency, double *bufferDynamicEnergy, double *icLatency, double *icDynamicEnergy,
@@ -58,7 +58,7 @@ vector<vector<double> > CopySubArray(const vector<vector<double> > &orginal, int
 vector<vector<double> > CopySubInput(const vector<vector<double> > &orginal, int positionRow, int numInputVector, int numRow);
 vector<double> GetInputVector(const vector<vector<double> > &input, int numInput, double *activityRowRead);
 // Cong update:double AverageActivityRowRead, double totalnumRow
-vector<double> GetColumnResistance(double AverageActivityRowRead,double totalnumRow, const vector<vector<double> > &weight, MemCell& cell, bool parallelRead, double resCellAccess);
+vector<double> GetColumnResistance(double AverageActivityRowRead,int numRowMatrix,int numColMatrix,double AverageConductance, MemCell& cell, bool parallelRead, double resCellAccess);
 
 
 #endif /* PROCESSINGUNIT_H_ */

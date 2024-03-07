@@ -800,10 +800,11 @@ double ChipCalculatePerformance(InputParameter& inputParameter, Technology& tech
 
 				int numRowMatrix = min(desiredTileSizeCM, weightMatrixRow-i*desiredTileSizeCM);
 				int numColMatrix = min(desiredTileSizeCM, weightMatrixCol-j*desiredTileSizeCM);
-				
 				// assign weight and input to specific tile
-				vector<vector<double> > tileMemory;
-				tileMemory = CopyArray(newMemory, i*desiredTileSizeCM, j*desiredTileSizeCM, numRowMatrix, numColMatrix);
+				// Cong: tileMemory is useless now, modified TileCalculatePerformance argument
+				// 2024-03-07	
+				// vector<vector<double> > tileMemory;
+				// tileMemory = CopyArray(newMemory, i*desiredTileSizeCM, j*desiredTileSizeCM, numRowMatrix, numColMatrix);
 				
 
 				
@@ -813,7 +814,7 @@ double ChipCalculatePerformance(InputParameter& inputParameter, Technology& tech
 				// tileInput = CopyInput(inputVector, i*desiredTileSizeCM, numInVector*param->numBitInput, numRowMatrix);
 
 				// Anni update: add &tileLeakageSRAMInUse
-				TileCalculatePerformance(tileMemory, tileMemory,AverageActivityRowRead, markNM[l], ceil((double)desiredTileSizeCM/(double)desiredPESizeCM), desiredPESizeCM, speedUpEachLayer[0][l], speedUpEachLayer[1][l],
+				TileCalculatePerformance(AverageConductance, AverageActivityRowRead, markNM[l], ceil((double)desiredTileSizeCM/(double)desiredPESizeCM), desiredPESizeCM, speedUpEachLayer[0][l], speedUpEachLayer[1][l],
 									numRowMatrix, numColMatrix, numInVector*param->numBitInput, cell, &tileReadLatency, &tileReadDynamicEnergy, &tileLeakage, &tileLeakageSRAMInUse,
 									&tilebufferLatency, &tilebufferDynamicEnergy, &tileicLatency, &tileicDynamicEnergy, 
 									&tileLatencyADC, &tileLatencyAccum, &tileLatencyOther, &tileEnergyADC, &tileEnergyAccum, &tileEnergyOther, CalculateclkFreq, clkPeriod);
@@ -979,9 +980,9 @@ double ChipCalculatePerformance(InputParameter& inputParameter, Technology& tech
 				int numColMatrix = min(desiredPESizeNM, weightMatrixCol-j*desiredPESizeNM);
 				
 				// assign weight and input to specific tile
-				vector<vector<double> > tileMemory;
-				tileMemory = ReshapeArray(newMemory, i*desiredPESizeNM, j*desiredPESizeNM, (int) netStructure[l][2]*numRowPerSynapse/numtileEachLayerRow, 
-									(int) netStructure[l][5]*numColPerSynapse/numtileEachLayerCol, numPENM, (int) netStructure[l][2]*numRowPerSynapse);
+				// vector<vector<double> > tileMemory;
+				// tileMemory = ReshapeArray(newMemory, i*desiredPESizeNM, j*desiredPESizeNM, (int) netStructure[l][2]*numRowPerSynapse/numtileEachLayerRow, 
+									// (int) netStructure[l][5]*numColPerSynapse/numtileEachLayerCol, numPENM, (int) netStructure[l][2]*numRowPerSynapse);
 
 				// Cong: this is useless
 				// vector<vector<double> > tileInput;
@@ -990,7 +991,7 @@ double ChipCalculatePerformance(InputParameter& inputParameter, Technology& tech
 
 				// Cong：AverageActivityRowRead
 				// Anni update: add &tileLeakageSRAMInUse
-				TileCalculatePerformance(tileMemory, tileMemory, AverageActivityRowRead, markNM[l], numPENM, desiredPESizeNM, speedUpEachLayer[0][l], speedUpEachLayer[1][l],
+				TileCalculatePerformance(AverageConductance, AverageActivityRowRead, markNM[l], numPENM, desiredPESizeNM, speedUpEachLayer[0][l], speedUpEachLayer[1][l],
 									numRowMatrix, numColMatrix, numInVector*param->numBitInput, cell, 
 									&tileReadLatency, &tileReadDynamicEnergy, &tileLeakage, &tileLeakageSRAMInUse, &tilebufferLatency, &tilebufferDynamicEnergy, &tileicLatency, &tileicDynamicEnergy,
 									&tileLatencyADC, &tileLatencyAccum, &tileLatencyOther, &tileEnergyADC, &tileEnergyAccum, &tileEnergyOther, CalculateclkFreq, clkPeriod);
