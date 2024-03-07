@@ -701,8 +701,7 @@ vector<double> GetInputVector(const vector<vector<double> > &input, int numInput
 	copy.clear();
 } 
 
-// Cong update: use double AverageActivityRowRead
-// this function is core of my modification
+// Cong update: use double AverageActivityRowRead this function is core of my modification
 // I need to get the number of input
 vector<double> GetColumnResistance(double AverageActivityRowRead, double totalnumRow,const vector<vector<double> > &weight, MemCell& cell, bool parallelRead, double resCellAccess) {
 	vector<double> resistance;
