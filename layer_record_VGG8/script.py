@@ -6,7 +6,8 @@ file_indices = {
     "weightConv": [0, 1, 3, 4, 6, 7],
     "weightFC": [0, 1]
 }
-
+weightfile = True
+all_data=[]
 # 定义文件所在的路径
 file_path = "/home/wangcong/projects/DNN_NeuroSim_V1.4/layer_record_VGG8/"  # 请根据实际情况修改这个路径
 
@@ -17,12 +18,17 @@ for prefix, indices in file_indices.items():
         # 构建完整的文件路径和文件名
         file_name = f"{file_path}{prefix}{i}_.csv"
         df = pd.read_csv(file_name, header=None)
-
-        # 计算非零元素的比例
-        non_zero_ratio = np.count_nonzero(df) / df.size
-
-        # 构建输出文件的完整路径和文件名
-        output_file_name = f"{file_path}{prefix}{i}_average.csv"
-        pd.DataFrame([non_zero_ratio]).to_csv(output_file_name, index=False, header=False)
+        if weightfile:
+            # all_data.append(df)
+            file_average = df.mean().mean()
+            output_file_name = f"{file_path}{prefix}{i}_average.csv"
+            pd.DataFrame([file_average]).to_csv(output_file_name, index=False, header=False)
+        else:
+            # 计算非零元素的比例
+            non_zero_ratio = np.count_nonzero(df) / df.size
+            # 构建输出文件的完整路径和文件名
+            output_file_name = f"{file_path}{prefix}{i}_average.csv"
+            pd.DataFrame([non_zero_ratio]).to_csv(output_file_name, index=False, header=False)
+ 
         
 print("average file generated successfully!")        

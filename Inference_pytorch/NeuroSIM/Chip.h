@@ -76,5 +76,6 @@ vector<vector<double> > CopyInput(const vector<vector<double> > &orginal, int po
 vector<vector<double> > ReshapeInput(const vector<vector<double> > &orginal, int positionRow, int numInputVector, int numRow, int numPE, int weightMatrixRow);
 
 // below function is added by Cong for the average model
-void LoadAverageRatio(const string &inputfile, double *Ratio);
+void LoadAverageValue(const string &inputfile, double *Value);
+double CalculateAveragConductance(const vector<vector<double>>& weight);
 #endif /* CHIP_H_ */

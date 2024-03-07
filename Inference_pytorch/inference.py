@@ -82,11 +82,11 @@ else:
 assert args.model in ['VGG8', 'DenseNet40', 'ResNet18'], args.model
 if args.model == 'VGG8':
     from models import VGG
-    model_path = './log/VGG8.pth'   # WAGE mode pretrained model
+    model_path = '/home/wangcong/projects/DNN_NeuroSim_V1.4/Inference_pytorch/log/VGG8.pth'   # WAGE mode pretrained model
     modelCF = VGG.vgg8(args = args, logger=logger, pretrained = model_path)
 elif args.model == 'DenseNet40':
     from models import DenseNet
-    model_path = './log/DenseNet40.pth'     # WAGE mode pretrained model
+    model_path = '/home/wangcong/projects/DNN_NeuroSim_V1.4/Inference_pytorch/log/DenseNet40.pth'     # WAGE mode pretrained model
     modelCF = DenseNet.densenet40(args = args, logger=logger, pretrained = model_path)
 elif args.model == 'ResNet18':
     from models import ResNet

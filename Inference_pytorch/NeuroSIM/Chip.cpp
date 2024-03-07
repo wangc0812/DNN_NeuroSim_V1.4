@@ -711,15 +711,23 @@ double ChipCalculatePerformance(InputParameter& inputParameter, Technology& tech
 	
 	double AverageActivityRowRead = 0.000;
 	// cout <<" current issued average file:" <<inputfile << endl;
-	LoadAverageRatio(inputfile, &AverageActivityRowRead);
+	LoadAverageValue(inputfile, &AverageActivityRowRead);
 	//------------------------------------------//
 	// Cong: inputVector is useless now 
 	// vector<vector<double> > inputVector;
 	// inputVector = LoadInInputData(inputfile); 
-	
+
 	vector<vector<double> > newMemory;
 	newMemory = LoadInWeightData(newweightfile, numRowPerSynapse, numColPerSynapse, param->maxConductance, param->minConductance);
-	
+	// Cong update 2024-03-07
+	// use weight average model
+	//------------------------------------------//
+	double AverageConductance = CalculateAveragConductance(newMemory);	
+	cout << "AverageConductance=" << AverageConductance << endl;
+	//------------------------------------------//
+
+
+
 	*readLatency = 0;
 	*readDynamicEnergy = 0;
 	*leakage = 0;
@@ -1655,7 +1663,7 @@ vector<vector<double> > ReshapeInput(const vector<vector<double> > &orginal, int
 
 // below function is added by Cong for the average model
 
-void LoadAverageRatio(const string &inputfile, double *Ratio) {
+void LoadAverageValue(const string &inputfile, double *Value) {
 	
 	ifstream infile(inputfile.c_str());     
 	string inputline;
@@ -1674,7 +1682,7 @@ void LoadAverageRatio(const string &inputfile, double *Ratio) {
             stringstream ss(inputline);
             if (getline(ss, inputvalue)) 
 			{
-                *Ratio = stod(inputvalue);
+                *Value = stod(inputvalue);
             }
 		}
 	}	
@@ -1683,7 +1691,19 @@ void LoadAverageRatio(const string &inputfile, double *Ratio) {
 }
 
 
+double CalculateAveragConductance(const vector<vector<double>>& weight) {
+    double sum = 0.0;
+    int count = 0;
 
+    for (const auto& row : weight) {
+        for (double val : row) {
+            sum += val;
+            ++count;
+        }
+    }
+
+    return (count > 0) ? (sum / count) : 0.0;
+}
 
 
 

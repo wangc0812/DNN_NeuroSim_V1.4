@@ -31,7 +31,10 @@ def Q(x, bits):
         return torch.sign(x)
     if bits > 15:
         return x
-    return torch.round(x*S(bits))/S(bits)
+    
+    result =  torch.round(x*S(bits))
+    result = torch.clamp(x,-S(bits) , S(bits)-1) 
+    return result
 
 def QW(x, bits, scale=1.0):
     y = Q(C(x, bits), bits)
