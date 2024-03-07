@@ -723,7 +723,7 @@ double ChipCalculatePerformance(InputParameter& inputParameter, Technology& tech
 	// use weight average model
 	//------------------------------------------//
 	double AverageConductance = CalculateAveragConductance(newMemory);	
-	cout << "AverageConductance=" << AverageConductance << endl;
+	// cout << "AverageConductance=" << AverageConductance << endl;
 	//------------------------------------------//
 
 
