@@ -711,11 +711,12 @@ double ChipCalculatePerformance(InputParameter& inputParameter, Technology& tech
 	
 	double AverageActivityRowRead = 0.000;
 	// cout <<" current issued average file:" <<inputfile << endl;
-	LoadInInputRatio(inputfile, &AverageActivityRowRead);
+	LoadAverageRatio(inputfile, &AverageActivityRowRead);
 	//------------------------------------------//
 	// Cong: inputVector is useless now 
 	// vector<vector<double> > inputVector;
 	// inputVector = LoadInInputData(inputfile); 
+	
 	vector<vector<double> > newMemory;
 	newMemory = LoadInWeightData(newweightfile, numRowPerSynapse, numColPerSynapse, param->maxConductance, param->minConductance);
 	
@@ -1654,7 +1655,7 @@ vector<vector<double> > ReshapeInput(const vector<vector<double> > &orginal, int
 
 // below function is added by Cong for the average model
 
-void LoadInInputRatio(const string &inputfile, double *AverageActivityRowRead) {
+void LoadAverageRatio(const string &inputfile, double *Ratio) {
 	
 	ifstream infile(inputfile.c_str());     
 	string inputline;
@@ -1673,7 +1674,7 @@ void LoadInInputRatio(const string &inputfile, double *AverageActivityRowRead) {
             stringstream ss(inputline);
             if (getline(ss, inputvalue)) 
 			{
-                *AverageActivityRowRead = stod(inputvalue);
+                *Ratio = stod(inputvalue);
             }
 		}
 	}	
